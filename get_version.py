@@ -18,6 +18,7 @@ firmware_version = firmware_version.strip(".")
 # Get the core version number from the custom.ini file
 try: 
   core_firmware_version = env.GetProjectOption("custom_core_firmware_version")
+  core_firmware_version = "2.5.1" # for now branch "use_2nd_core" from https://github.com/elral/MF_GNC255 is used, delete this line once this branch is merged
   if core_firmware_version == "":
     # When no version is specified send an error
     print("ERROR!! Core Firmware Version must be a valid version!!")
