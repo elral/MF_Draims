@@ -17,18 +17,17 @@
     "Info": {
       "CanInstallFirmware": true,
       "CanResetBoard": true,
-      "FirmwareBaseName": "mobiflight_template_raspberrypico",
+      "FirmwareBaseName": "mobiflight_draims_raspberrypico",
       "FirmwareExtension": "uf2",
-      "FriendlyName": "MobiFlight Template RaspiPico",
-      "LatestFirmwareVersion": "0.0.1",
-      "MobiFlightType": "Mobiflight Template RaspiPico",
+      "FriendlyName": "MobiFlight Draims RaspiPico",
+      "LatestFirmwareVersion": "0.9.0",
+      "MobiFlightType": "Mobiflight Draims RaspiPico",
       "ResetFirmwareFile": "reset.raspberry_pico_flash_nuke.uf2",
       "CustomDeviceTypes": [
-        "MOBIFLIGHT_TEMPLATE",
-        "MOBIFLIGHT_TEMPLATE2"
+        "DRAIMS_A320"
       ],
       "Community": {
-        "Project": "Your Project",
+        "Project": "Display for Airbus Draims",
         "Website": "https://YourWebsite.com",
         "Docs": "https://YourWebsite.com",
         "Support": "https://YourWebsite.com"
