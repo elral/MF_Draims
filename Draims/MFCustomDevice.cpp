@@ -77,7 +77,7 @@ void MFCustomDevice::attach(uint16_t adrPin, uint16_t adrType, uint16_t adrConfi
 
     char   *params, *p = NULL;
     char    parameter[MEMLEN_STRING_BUFFER];
-    uint8_t _pin1, _pin2, _pin3;
+    //uint8_t _pin1, _pin2, _pin3;
 
     /* **********************************************************************************
         Read the Type from the EEPROM or Flash, copy it into a buffer and evaluate it
@@ -101,22 +101,22 @@ void MFCustomDevice::attach(uint16_t adrPin, uint16_t adrType, uint16_t adrConfi
             Read the pins from the EEPROM or Flash, copy them into a buffer
             If you have set '"isI2C": true' in the device.json file, the first value is the I2C address
         ********************************************************************************************** */
-        getStringFromMem(adrPin, parameter, configFromFlash);
+        //getStringFromMem(adrPin, parameter, configFromFlash);
         /* **********************************************************************************************
             Split the pins up into single pins. As the number of pins could be different between
             multiple devices, it is done here.
         ********************************************************************************************** */
-        params = strtok_r(parameter, "|", &p);
-        _pin1  = atoi(params);
-        params = strtok_r(NULL, "|", &p);
-        _pin2  = atoi(params);
-        params = strtok_r(NULL, "|", &p);
-        _pin3  = atoi(params);
+        //params = strtok_r(parameter, "|", &p);
+        //_pin1  = atoi(params);
+        //params = strtok_r(NULL, "|", &p);
+        //_pin2  = atoi(params);
+        //params = strtok_r(NULL, "|", &p);
+        //_pin3  = atoi(params);
 
         /* **********************************************************************************
             Read the configuration from the EEPROM or Flash, copy it into a buffer.
         ********************************************************************************** */
-        getStringFromMem(adrConfig, parameter, configFromFlash);
+        //getStringFromMem(adrConfig, parameter, configFromFlash);
         /* **********************************************************************************
             Split the config up into single parameter. As the number of parameters could be
             different between multiple devices, it is done here.
@@ -125,12 +125,12 @@ void MFCustomDevice::attach(uint16_t adrPin, uint16_t adrType, uint16_t adrConfi
             For most customer devices it is not required.
             In this case just delete the following
         ********************************************************************************** */
-        uint16_t Parameter1;
-        char    *Parameter2;
-        params     = strtok_r(parameter, "|", &p);
-        Parameter1 = atoi(params);
-        params     = strtok_r(NULL, "|", &p);
-        Parameter2 = params;
+        //uint16_t Parameter1;
+        //char    *Parameter2;
+        //params     = strtok_r(parameter, "|", &p);
+        //Parameter1 = atoi(params);
+        //params     = strtok_r(NULL, "|", &p);
+        //Parameter2 = params;
 
         /* **********************************************************************************
             Next call the constructor of your custom device
@@ -138,8 +138,8 @@ void MFCustomDevice::attach(uint16_t adrPin, uint16_t adrType, uint16_t adrConfi
         ********************************************************************************** */
         // In most cases you need only one of the following functions
         // depending on if the constuctor takes the variables or a separate function is required
-        _mydevice = new (allocateMemory(sizeof(draims_a320))) draims_a320(_pin1, _pin2);
-        _mydevice->attach(Parameter1, Parameter2);
+        _mydevice = new (allocateMemory(sizeof(draims_a320))) draims_a320();
+        _mydevice->attach();
         // if your custom device does not need a separate begin() function, delete the following
         // or this function could be called from the custom constructor or attach() function
         _mydevice->begin();

@@ -1,18 +1,29 @@
 #pragma once
 
 #include "Arduino.h"
+#include <TFT_eSPI.h>
+
+// Use these when printing or drawing text in GLCD and high rendering speed fonts
+// Call up the font using tft.setTextFont()
+#define GFXFF 1
+#define GLCD  0
+#define FONT2 2
+#define FONT4 4
+#define FONT6 6
+#define FONT7 7
+#define FONT8 8
 
 class draims_a320
 {
 public:
-    draims_a320(uint8_t Pin1, uint8_t Pin2);
+    draims_a320();
     void begin();
-    void attach(uint16_t Pin3, char *init);
+    void attach();
     void detach();
     void set(int16_t messageID, char *setPoint);
     void update();
 
 private:
-    bool    _initialised;
-    uint8_t _pin1, _pin2, _pin3;
+    bool      _initialised;
+    TFT_eSPI *draims_tft;
 };

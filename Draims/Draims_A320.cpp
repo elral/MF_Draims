@@ -7,19 +7,34 @@
     Change/add your code as needed.
 ********************************************************************************** */
 
-draims_a320::draims_a320(uint8_t Pin1, uint8_t Pin2)
+draims_a320::draims_a320()
 {
-    _pin1 = Pin1;
-    _pin2 = Pin2;
+    _initialised = true;
 }
 
 void draims_a320::begin()
 {
+    draims_tft->init();
+    //draims_tft->initDMA();
+    draims_tft->fillScreen(TFT_BLACK);
+    draims_tft->setRotation(0);
+
+    draims_tft->setTextColor(TFT_WHITE);
+    draims_tft->setTextDatum(TC_DATUM); // Centre middle justified
+    draims_tft->setFreeFont(&FreeSerifBold24pt7b);
+    draims_tft->setTextFont(GLCD);     // Select the orginal small GLCD font by using NULL or GLCD
+    draims_tft->drawString("First Display Test!!", TFT_WIDTH / 2, TFT_HEIGHT / 2, 1);
+    draims_tft->setTextColor(TFT_YELLOW);
 }
 
-void draims_a320::attach(uint16_t Pin3, char *init)
+void draims_a320::attach()
 {
-    _pin3 = Pin3;
+    if (!FitInMemory(sizeof(TFT_eSPI))) {
+        // Error Message to Connector
+        cmdMessenger.sendCmd(kStatus, F("Custom Device does not fit in Memory"));
+        return;
+    }
+    draims_tft = new (allocateMemory(sizeof(TFT_eSPI))) TFT_eSPI();
 }
 
 void draims_a320::detach()

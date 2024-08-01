@@ -20,6 +20,6 @@ private:
     bool           getStringFromMem(uint16_t addreeprom, char *buffer, bool configFromFlash);
     bool           _initialized = false;
     draims_a320    *_mydevice;
-    uint8_t        _pin1, _pin2, _pin3;
+    //uint8_t        _pin1, _pin2, _pin3;
     uint8_t        _customType = 0;
 };
