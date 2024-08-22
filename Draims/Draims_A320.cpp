@@ -12,10 +12,22 @@ draims_a320::draims_a320()
     _initialised = false;
 }
 
+void draims_a320::attach()
+{
+    if (!FitInMemory(sizeof(TFT_eSPI))) {
+        // Error Message to Connector
+        cmdMessenger.sendCmd(kStatus, F("Custom Device does not fit in Memory"));
+        return;
+    }
+    draims_tft = new (allocateMemory(sizeof(TFT_eSPI))) TFT_eSPI();
+    _initialised = true;
+}
+
 void draims_a320::begin()
 {
     if (!_initialised)
         return;
+
     uint32_t millis_start, millis_end;
     draims_tft->init();
     //draims_tft->initDMA();
@@ -37,17 +49,6 @@ void draims_a320::begin()
     sprintf(message, "Erasing display needs: %5d ms", millis_end - millis_start); // create message
     draims_tft->drawString(message, TFT_HEIGHT / 2, (TFT_WIDTH / 2) + 50, 1);
 
-}
-
-void draims_a320::attach()
-{
-    if (!FitInMemory(sizeof(TFT_eSPI))) {
-        // Error Message to Connector
-        cmdMessenger.sendCmd(kStatus, F("Custom Device does not fit in Memory"));
-        return;
-    }
-    draims_tft = new (allocateMemory(sizeof(TFT_eSPI))) TFT_eSPI();
-    _initialised = true;
 }
 
 void draims_a320::detach()
