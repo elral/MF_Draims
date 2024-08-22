@@ -9,22 +9,34 @@
 
 draims_a320::draims_a320()
 {
-    _initialised = true;
+    _initialised = false;
 }
 
 void draims_a320::begin()
 {
+    if (!_initialised)
+        return;
+    uint32_t millis_start, millis_end;
     draims_tft->init();
     //draims_tft->initDMA();
+    millis_start = millis();
     draims_tft->fillScreen(TFT_BLACK);
-    draims_tft->setRotation(0);
+    millis_end = millis();
+    draims_tft->setRotation(3);
 
     draims_tft->setTextColor(TFT_WHITE);
     draims_tft->setTextDatum(TC_DATUM); // Centre middle justified
     draims_tft->setFreeFont(&FreeSerifBold24pt7b);
+    draims_tft->drawString("First 5inch Display Test!", TFT_HEIGHT / 2, (TFT_WIDTH / 2)  - 24, 1);
     draims_tft->setTextFont(GLCD);     // Select the orginal small GLCD font by using NULL or GLCD
-    draims_tft->drawString("First Display Test!!", TFT_WIDTH / 2, TFT_HEIGHT / 2, 1);
     draims_tft->setTextColor(TFT_YELLOW);
+    draims_tft->drawString("running on Raspberry Pico using the second core", TFT_HEIGHT / 2, (TFT_WIDTH / 2) + 30, 1);
+
+    draims_tft->setTextColor(TFT_RED);
+    char message[40];                                                    // buffer for message
+    sprintf(message, "Erasing display needs: %5d ms", millis_end - millis_start); // create message
+    draims_tft->drawString(message, TFT_HEIGHT / 2, (TFT_WIDTH / 2) + 50, 1);
+
 }
 
 void draims_a320::attach()
@@ -35,6 +47,7 @@ void draims_a320::attach()
         return;
     }
     draims_tft = new (allocateMemory(sizeof(TFT_eSPI))) TFT_eSPI();
+    _initialised = true;
 }
 
 void draims_a320::detach()
